@@ -1,7 +1,8 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect } from "react";
 import { LoginForm } from "@/components/auth/login-form";
+import { getUsers } from "@/lib/api-client";
 import { LoggedInDisplay } from "@/components/auth/logged-in-display";
 
 export default function Home() {
@@ -17,6 +18,15 @@ export default function Home() {
     setUserEmail("");
     setIsLoggedIn(false);
   };
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const users = await getUsers();
+      console.log("Fetched users:", users);
+    };
+
+    fetchUsers();
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 selection:bg-primary/20 selection:text-primary">
